@@ -1,0 +1,23 @@
+@(message: String, am: AccountModel)
+@implicitFieldConstructor = {helper.FieldConstructor(twitterBootstrapInput.render)}
+
+@main("Account Demo") {
+    <div class="navbar navbar-fixed-top">    
+		<div class="navbar-inner">
+		   <div class="container-fluid">
+			<span class="brand">@message</span>
+		   </div>
+		</div>
+    </div>
+    
+    <div class="container">	
+		<!--    	<div class="left imgHolder"><img src="" /></div>	-->
+    	<div class="right detailHolder">
+			<div class="label">@am.name</div>
+<!--			<div class="description">
+				<p></p>
+			</div>
+	-->	</div>
+		<div class="clear"></div>
+	</div>
+}

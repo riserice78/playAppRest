@@ -1,0 +1,60 @@
+body {
+	margin-top: 50px;
+}
+.container{
+	padding-top: 20px;
+}
+.resultList li{
+	list-style: none;
+	float: left;
+	margin-right: 15px;
+	margin-top: 20px;
+}
+
+.resultList li img{
+	width: 100px;
+	height: 100px;
+	border: 1px solid #DDD;
+	padding: 10px;
+}
+.resultList li span{
+	display: none;
+	width: 112px;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	margin-top: -50px;
+	height: 40px;
+}
+.resultList li:hover span{
+	display: block;
+}
+.resultList li span a{
+	font-size: 12px;
+	color: white;	
+	text-decoration: none;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+.clear{
+	clear: both;
+}
+.label{
+	font-weight: bold;
+	font-size: 15px;
+}
+.imgHolder{
+	text-align: right;
+	width: 48%;
+	margin-right: 2%;
+}
+.imgHolder img{
+	border: 1px solid #DDD;
+}
+.detailHolder{
+	width: 50%;
+}
