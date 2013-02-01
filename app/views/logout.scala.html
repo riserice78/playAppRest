@@ -1,0 +1,17 @@
+@(message: String)
+@implicitFieldConstructor = {helper.FieldConstructor(twitterBootstrapInput.render)}
+
+@main("SF Demo Rest Logout") {
+    <div class="navbar navbar-fixed-top">    
+		<div class="navbar-inner">
+		   <div class="container-fluid">
+			<span class="brand">SF Demo Rest Logout</span>
+		   </div>
+		</div>
+    </div>
+    <div>
+    	<br />    	
+    	@message
+    	go back to <a href="/">app</a>.
+    </div>
+}
