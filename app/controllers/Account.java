@@ -4,35 +4,22 @@ import static play.libs.Json.toJson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import models.AccountModel;
-import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import service.OAuthManager;
-
-import com.sforce.soap.partner.PartnerConnection;
-import com.sforce.soap.partner.QueryResult;
-import com.sforce.soap.partner.sobject.SObject;
-import com.sforce.ws.ConnectionException;
 
 import views.html.*;
 
@@ -57,20 +44,23 @@ public class Account extends Controller{
 				System.out.println("in getAccountDetails " + e.getMessage());
 			}
 		}
-
-		for(int i=0; i<amList.size(); i++){
-			if(id.equals(amList.get(i).id)){
-				am = amList.get(i);
-				System.out.println("FOUND!");
-				break;
+		if(amList!=null){
+			for(int i=0; i<amList.size(); i++){
+				if(id.equals(amList.get(i).id)){
+					am = amList.get(i);
+					System.out.println("FOUND!");
+					break;
+				}
 			}
+			if(am==null){
+				am = new AccountModel();
+				am.name = "";
+			}
+			System.out.println("am : " + am);	
+			return ok(accountviewmore.render("Account Details", am));
+		}else{
+			return redirect("/");
 		}
-		if(am==null){
-			am = new AccountModel();
-			am.name = "";
-		}
-		System.out.println("am : " + am);	
-  	    return ok(accountviewmore.render("Account Details", am));
 	}
 	  
 	public static Result getAccounts(){
@@ -82,7 +72,7 @@ public class Account extends Controller{
 		String instanceUrl = OAuthManager.getOAuthManager().getInstanceUrl();
 		String accessToken = OAuthManager.getOAuthManager().getAccessToken();
 		if(instanceUrl!=null && accessToken!=null){
-		    String query = instanceUrl + "/services/data/v20.0/query?q=SELECT+id,+name,+Description,+ProductCode+from+Product2";
+		    String query = instanceUrl + "/services/data/v20.0/query?q=SELECT+Id,+Name,+Type,+Industry,+AnnualRevenue,+BillingStreet,+BillingCity,+BillingState,+BillingCountry+from+Account";
 	
 			HttpClient httpclient = new DefaultHttpClient();
 		    HttpGet request = new HttpGet(query);
@@ -96,13 +86,28 @@ public class Account extends Controller{
 		    amList = new ArrayList<AccountModel>();
 	        for(int i=0; i<jsonArray.size(); i++){
 				try {
-					JSONObject product = (JSONObject)jsonArray.get(i);
-		            System.out.println("Record" + i +" : " + product.toString());
+					JSONObject account = (JSONObject)jsonArray.get(i);
+		            System.out.println("Record" + i +" : " + account.toString());
 		            AccountModel model = new AccountModel();
-					model.id = product.get("Id").toString();
+					model.id = account.get("Id").toString();
 					System.out.println("id: "+model.id);
-					model.name =  product.get("Name").toString();
+					model.name =  account.get("Name").toString();
 					System.out.println("name: "+model.name);
+					model.typeOfAccount =  account.get("Type").toString();
+					System.out.println("type: "+model.typeOfAccount);
+					model.industry =  account.get("Industry").toString();
+					System.out.println("type: "+model.industry);
+					model.annualRevenue =  account.get("AnnualRevenue").toString();
+					System.out.println("type: "+model.annualRevenue);
+					model.billingStreet =  account.get("BillingStreet").toString();
+					System.out.println("type: "+model.billingStreet);
+					model.billingCity =  account.get("BillingCity").toString();
+					System.out.println("type: "+model.billingCity);
+					model.billingState =  account.get("BillingState").toString();
+					System.out.println("type: "+model.billingState);
+					model.billingCountry =  account.get("BillingCountry").toString();
+					System.out.println("type: "+model.billingCountry);					
+					
 					System.out.println("adding to array : " + model.id + " " + model.name + ";");
 					amList.add(model);
 				} catch (Exception e) {
