@@ -1,4 +1,10 @@
-This is your new Play 2.0 application
+playAppRest
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+This is a template Play 2.0 application for integrating with Salesforce via OAuth.
+After authentication, it retrieves the list of Accounts in your org.
+
+To use, add the following to your conf/application.conf file:
+my.clientId = <Consumer Key as defined in your Remote Access Application settings>
+my.clientSecret = <Consumer Secret as defined in your Remote Access Application settings>
+my.callbackUrl = <Callback URL as defined in your Remote Access Application settings>
