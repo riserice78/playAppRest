@@ -8,4 +8,4 @@ To use, add the following to your conf/application.conf file:
 my.clientId = <Consumer Key as defined in your Remote Access Application settings>
 my.clientSecret = <Consumer Secret as defined in your Remote Access Application settings>
 my.callbackUrl = <Callback URL as defined in your Remote Access Application settings>
-      example: https://localhost:9000//callbackMethod
+      example: http://localhost:9000/callbackMethod
