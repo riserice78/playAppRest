@@ -53,8 +53,8 @@ public class OAuthManager {
 		loginHost = Play.application().configuration().getString("my.loginHost");
 		clientId = Play.application().configuration().getString("my.clientId");
 		clientSecret = Play.application().configuration().getString("my.clientSecret");
-	    redirectUri = Play.application().configuration().getString("my.callbackUrl");
-	    redirectUriLogout = Play.application().configuration().getString("my.callbackUrlLogout");
+		redirectUri = Play.application().configuration().getString("my.callbackUrl");
+		redirectUriLogout = Play.application().configuration().getString("my.callbackUrlLogout");
 	}
 
 	public String getInstanceUrl() {
@@ -78,14 +78,14 @@ public class OAuthManager {
 		String accessTokenUrl = createUrl(url, queryString);
 		System.out.println("accessTokenUrl : " + accessTokenUrl);
 
-	    try {
-		    @SuppressWarnings("unchecked")
+		try {
+			@SuppressWarnings("unchecked")
 			Map<String, String> responseMap = (Map<String, String>) getJson(accessTokenUrl);
-		    accessToken = responseMap.get("access_token");
-		    instanceUrl = responseMap.get("instance_url");
+			accessToken = responseMap.get("access_token");
+			instanceUrl = responseMap.get("instance_url");
 			System.out.println("instance URL: " + instanceUrl);
 			System.out.println("access token: " + accessToken);
-	    } catch (OAuthException e) {
+		} catch (OAuthException e) {
 			e.printStackTrace();
 			throw new OAuthException(e.getMessage());
 		}
@@ -109,7 +109,7 @@ public class OAuthManager {
 
 		try {
 			List<BasicNameValuePair> parametersBody = new ArrayList<BasicNameValuePair>();
-		    parametersBody.add(new BasicNameValuePair("token", accessToken));
+			parametersBody.add(new BasicNameValuePair("token", accessToken));
 
 			return post(revokeUrl, new UrlEncodedFormEntity(parametersBody));
 		} catch (ParseException e) {
@@ -125,7 +125,7 @@ public class OAuthManager {
 	public Object getJson(String url) throws OAuthException {
 		String response_body = get(url);
 		try {
-		    JSONParser jp = new JSONParser();
+			JSONParser jp = new JSONParser();
 			return jp.parse(response_body);
 		} catch (org.json.simple.parser.ParseException e) {
 			throw new OAuthException(e.getMessage());
@@ -141,21 +141,21 @@ public class OAuthManager {
 
 	public String post(String url, HttpEntity entity) throws OAuthException {
 		HttpPost request = new HttpPost(url);
-	    request.setHeader("Content-Type", "application/x-www-form-urlencoded");
-	    if (entity != null)
-	    	request.setEntity(entity);
-	    if (accessToken != null)
-	    	request.setHeader("Authorization", "Bearer " + accessToken);
-	    return send(request);	
+		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		if (entity != null)
+			request.setEntity(entity);
+		if (accessToken != null)
+			request.setHeader("Authorization", "Bearer " + accessToken);
+		return send(request);	
 	}
 
 	public String send(HttpRequestBase request) throws OAuthException {
 		HttpClient httpclient = new DefaultHttpClient();
-	    request.setHeader("Content-Type", "application/x-www-form-urlencoded");
-	    request.setHeader("X-PrettyPrint", "1"); 
-	    if (accessToken != null)
-	    	request.setHeader("Authorization", "Bearer " + accessToken);
-	    System.out.println("request url = " + request.getURI().toString());
+		request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		request.setHeader("X-PrettyPrint", "1"); 
+		if (accessToken != null)
+			request.setHeader("Authorization", "Bearer " + accessToken);
+			System.out.println("request url = " + request.getURI().toString());
 		try {
 			HttpResponse response = httpclient.execute(request);
 			return EntityUtils.toString(response.getEntity());

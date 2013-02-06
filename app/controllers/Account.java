@@ -47,7 +47,7 @@ public class Account extends Controller {
 		System.out.println("am : " + am);	
 		return ok(accountviewmore.render("Account Details", am));
 	}
-	  
+
 	public static Result getAccounts(){
 		if(amList == null){
 			try {
@@ -62,17 +62,17 @@ public class Account extends Controller {
 	public static void initAccountListRest() throws OAuthException {
 		RestApi rest = RestApi.getInstance();
 
-	    String soql = "SELECT Id, Name, Type, Industry, AnnualRevenue, BillingStreet, BillingCity, BillingState, BillingCountry from Account";
-	    Map<String, Object> responseMap = rest.query(soql);
-        JSONArray jsonArray = (JSONArray)responseMap.get("records");
-	    amList = new ArrayList<AccountModel>();
-	    amMap = new HashMap<String, AccountModel>();
-        for (Object jo : jsonArray) {
+		String soql = "SELECT Id, Name, Type, Industry, AnnualRevenue, BillingStreet, BillingCity, BillingState, BillingCountry from Account";
+		Map<String, Object> responseMap = rest.query(soql);
+		JSONArray jsonArray = (JSONArray)responseMap.get("records");
+		amList = new ArrayList<AccountModel>();
+		amMap = new HashMap<String, AccountModel>();
+		for (Object jo : jsonArray) {
 			JSONObject account = (JSONObject)jo;
 			AccountModel am = new AccountModel(account);
 			amList.add(am);
 			amMap.put(am.id, am);
-    	}
+		}
 	}
 
 }

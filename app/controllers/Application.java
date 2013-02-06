@@ -6,7 +6,7 @@ import views.html.*;
 
 
 public class Application extends Controller {
-  
+
 	public static Result login() {	
 		try {
 			String redirect_url = OAuthManager.getInstance().getAuthorizeRedirectUrl();	 
