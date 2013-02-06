@@ -2,7 +2,7 @@ playAppRest
 =====================================
 
 This is a template Play 2.0 application for integrating with Salesforce via OAuth.
-After authentication, it retrieves the list of Accounts in your org.
+After authorization, it retrieves the list of Accounts in your org.
 
 To use, add the following to your conf/application.conf file:
 my.clientId = <Consumer Key as defined in your Remote Access Application settings>
