@@ -9,5 +9,7 @@ my.clientId = <Consumer Key as defined in your Remote Access Application setting
 my.clientSecret = <Consumer Secret as defined in your Remote Access Application settings>
 my.callbackUrl = <Callback URL as defined in your Remote Access Application settings>
       example: http://localhost:9000/callbackMethod
+my.callbackUrlLogout = <Your URL>/logout
+my.loginHost = "https://login.salesforce.com"
 
 A demo can be found at http://stark-oasis-8972.herokuapp.com
